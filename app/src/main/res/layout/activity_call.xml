@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <TextView
+        android:id="@+id/textStatus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#CC000000"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="10dp"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Connecting… · my-room" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerParticipants"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:padding="4dp"
+        app:layout_constraintBottom_toTopOf="@id/controlBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textStatus"
+        tools:listitem="@layout/item_participant" />
+
+    <FrameLayout
+        android:id="@+id/localPreviewContainer"
+        android:layout_width="110dp"
+        android:layout_height="150dp"
+        android:layout_margin="12dp"
+        android:background="@drawable/bg_rounded_preview"
+        android:clipToOutline="true"
+        android:elevation="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textStatus">
+
+        <io.livekit.android.renderer.SurfaceViewRenderer
+            android:id="@+id/localVideoRenderer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/controlBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#CC000000"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingVertical="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonMic"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="4dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/control_mic" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonCamera"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="4dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/control_camera" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonSwitchCamera"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="4dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/control_flip" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonSpeaker"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="4dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/control_speaker" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonLeave"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="4dp"
+            android:backgroundTint="#D32F2F"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/control_leave" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">LiveKitDemo</string>
+
+    <string name="home_title">LiveKit Video Call</string>
+    <string name="hint_token_server">Token Server (http://ip:3000)</string>
+    <string name="hint_identity">Your Name</string>
+    <string name="hint_room_name">Room Name</string>
+    <string name="action_join">Join Room</string>
+    <string name="error_missing_fields">Please fill in token server, your name, and room name</string>
+    <string name="error_permissions_denied">Camera and microphone permissions are required to join a call</string>
+    <string name="action_open_settings">Open Settings</string>
+    <string name="error_token_fetch_failed">Couldn\'t reach token server: %1$s</string>
+
+    <string name="status_connecting_room">Connecting… · %1$s</string>
+    <string name="status_connected_room">Connected · %1$s</string>
+    <string name="status_reconnecting_room">Reconnecting… · %1$s</string>
+    <string name="status_disconnected_room">Disconnected · %1$s</string>
+    <string name="you_label">You</string>
+
+    <string name="control_mic">Mic</string>
+    <string name="control_camera">Cam</string>
+    <string name="control_flip">Flip</string>
+    <string name="control_speaker">Spkr</string>
+    <string name="control_leave">Leave</string>
+
+    <string name="label_mic_off">MIC OFF</string>
+    <string name="label_camera_off">CAM OFF</string>
+</resources>
