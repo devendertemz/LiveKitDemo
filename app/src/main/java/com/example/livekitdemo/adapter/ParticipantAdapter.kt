@@ -16,13 +16,21 @@ class ParticipantAdapter(
     private val initRenderer: (SurfaceViewRenderer) -> Unit,
 ) : ListAdapter<ParticipantModel, ParticipantAdapter.ParticipantViewHolder>(DIFF_CALLBACK) {
 
+    /** Pixel height forced on every tile so tiles fill the grid evenly, WhatsApp-style. */
+    var itemHeightPx: Int = ViewGroup.LayoutParams.MATCH_PARENT
+        set(value) {
+            if (field == value) return
+            field = value
+            notifyItemRangeChanged(0, itemCount)
+        }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParticipantViewHolder {
         val binding = ItemParticipantBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ParticipantViewHolder(binding, initRenderer)
     }
 
     override fun onBindViewHolder(holder: ParticipantViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), itemHeightPx)
     }
 
     override fun onViewRecycled(holder: ParticipantViewHolder) {
@@ -37,7 +45,13 @@ class ParticipantAdapter(
         private var boundTrack: VideoTrack? = null
         private var rendererInitialized = false
 
-        fun bind(model: ParticipantModel) {
+        fun bind(model: ParticipantModel, heightPx: Int) {
+            val params = binding.root.layoutParams
+            if (params.height != heightPx) {
+                params.height = heightPx
+                binding.root.layoutParams = params
+            }
+
             binding.textName.text = if (model.isLocal) {
                 itemView.context.getString(R.string.you_label)
             } else {

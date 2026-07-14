@@ -64,6 +64,7 @@ class CallActivity : AppCompatActivity() {
         binding.textStatus.text = getString(statusTextRes(state.connectionState), state.roomName)
 
         val remoteParticipants = state.participants.filterNot { it.isLocal }
+        updateGridLayout(remoteParticipants.size)
         adapter.submitList(remoteParticipants)
 
         val newLocalTrack = state.participants.firstOrNull { it.isLocal }?.videoTrack
@@ -80,6 +81,26 @@ class CallActivity : AppCompatActivity() {
         state.errorMessage?.let { message ->
             Toast.makeText(this, message, Toast.LENGTH_LONG).show()
             viewModel.clearError()
+        }
+    }
+
+    /** WhatsApp-style adaptive grid: 1 participant fills the screen, 2 stack, 3-4 form a 2x2 grid, 5+ scroll. */
+    private fun updateGridLayout(remoteCount: Int) {
+        val columns = when {
+            remoteCount <= 2 -> 1
+            remoteCount <= 4 -> 2
+            else -> 3
+        }
+        val layoutManager = binding.recyclerParticipants.layoutManager as GridLayoutManager
+        if (layoutManager.spanCount != columns) {
+            layoutManager.spanCount = columns
+        }
+
+        val recyclerHeight = binding.recyclerParticipants.height
+        if (recyclerHeight > 0 && remoteCount > 0) {
+            val rows = (remoteCount + columns - 1) / columns
+            val marginPx = (8 * resources.displayMetrics.density).toInt()
+            adapter.itemHeightPx = (recyclerHeight - rows * 2 * marginPx) / rows
         }
     }
 
