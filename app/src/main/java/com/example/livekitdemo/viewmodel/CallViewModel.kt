@@ -1,6 +1,7 @@
 package com.example.livekitdemo.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.livekitdemo.model.CallUiState
@@ -36,13 +37,20 @@ class CallViewModel(application: Application) : AndroidViewModel(application) {
 
     fun connect(url: String, token: String, roomName: String) {
         _uiState.update { it.copy(roomName = roomName) }
+        Log.i(TAG, "Connecting to $url (room=$roomName)")
         viewModelScope.launch {
             try {
                 repository.connect(url, token)
+                Log.i(TAG, "Connected to $url")
             } catch (e: Exception) {
-                _uiState.update { it.copy(errorMessage = e.message ?: "Failed to connect") }
+                Log.e(TAG, "Failed to connect to $url", e)
+                _uiState.update { it.copy(errorMessage = "${e.javaClass.simpleName}: ${e.message}") }
             }
         }
+    }
+
+    companion object {
+        private const val TAG = "CallViewModel"
     }
 
     fun toggleMic() {
